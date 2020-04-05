@@ -1,0 +1,60 @@
+//2020 04 05 C++ 
+//https://programmers.co.kr/learn/courses/30/lessons/1829#
+
+#include <vector>
+#include <iostream>
+using namespace std;
+void fun(vector<vector<int>> &vec, int& w, int color,int col, int row );
+int width;
+int colMax;
+int rowMax;
+// 전역 변수를 정의할 경우 함수 내에 초기화 코드를 꼭 작성해주세요.
+vector<int> solution(int m, int n, vector<vector<int>> picture) {
+	int number_of_area = 0;
+	int max_size_of_one_area = 0;
+	colMax = n;
+	rowMax = m;
+	width = 0;
+	vector<int> answer(2);
+	answer[0] = number_of_area;
+	answer[1] = max_size_of_one_area;
+
+	for (int i = 0; i < m; i++)
+	{
+		for (int j = 0; j < n; j++)
+		{
+			if (picture[i][j] != 0)
+			{
+				answer[0]++;
+                int w = 0;
+				fun(picture, w, picture[i][j], j, i);
+
+			}
+		}
+	}
+	answer[1] = width;
+	return answer;
+}
+void fun(vector<vector<int>>& vec, int& w, int color, int col, int row)
+{
+	
+	if (col >= colMax|| col<0) return;
+	if (row >= rowMax || row < 0) return;
+
+	if (vec[row][col] == color)
+	{
+		vec[row][col] = 0;
+
+		w++;
+		fun(vec, w, color, col + 1, row);
+		fun(vec, w, color, col, row + 1);
+    fun(vec, w, color, col -1, row);
+		fun(vec, w, color, col, row -1);
+        
+		if (w > width) 
+        {
+
+            width = w;
+        }
+	}
+}
