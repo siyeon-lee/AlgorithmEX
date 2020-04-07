@@ -1,0 +1,38 @@
+#include <string>
+#include <vector>
+#include <queue>
+#include <algorithm>
+#include <iostream>
+using namespace std;
+
+int solution(int bridge_length, int weight, vector<int> truck_weights) {
+
+    queue<int> car;
+    queue<int> carNum;
+    int time = 1;
+    int currentCar = 0;
+    int currentWeight = truck_weights[0];
+    car.push(time);
+    carNum.push(currentCar);
+    int firstCarNum = 0;
+    while(!car.empty())
+    {
+        time++;
+        if(time - car.front() >=bridge_length )
+        {
+            currentWeight -= truck_weights[firstCarNum];
+            car.pop();
+            firstCarNum++;
+        }
+        if((currentWeight+truck_weights[currentCar+1] <= weight) && (currentCar < truck_weights.size()-1))
+        {
+            currentCar++;
+            currentWeight += truck_weights[currentCar];
+            car.push(time);
+        }
+
+    }
+    
+    
+    return time;
+}
