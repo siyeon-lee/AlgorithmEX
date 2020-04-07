@@ -1,7 +1,7 @@
 /*
 2020 04 07
 https://programmers.co.kr/learn/courses/30/lessons/42583
-프로그래머스 다리를 다리를 지나는 트럴 42583
+프로그래머스 다리를 다리를 지나는 트럭 42583
 큐 
 */
 
@@ -15,14 +15,13 @@ using namespace std;
 int solution(int bridge_length, int weight, vector<int> truck_weights) {
 
     queue<int> car;
-    queue<int> carNum;
+
     int time = 1;
     int currentCar = 0;
-    int currentWeight = truck_weights[0];
+    int currentWeight = truck_weights[currentCar];
     car.push(time);
-    carNum.push(currentCar);
     int firstCarNum = 0;
-    while(!car.empty())
+    while(!car.empty())             //do while로 고치면 더 깔끔할 
     {
         time++;
         if(time - car.front() >=bridge_length )
